@@ -158,6 +158,16 @@ module Enumerable
   end
 end
 
+class Array
+  def lazy_slice(range)
+    Enumerator.new do |yielder|
+      range.each do |index|
+        yielder << self[index]
+      end
+    end.lazy
+  end
+end
+
 # Example
 
 # -- Print the first 100 primes
@@ -185,3 +195,7 @@ end
 #  lazy.map{|even, ns| ns}.
 #  take_while{|ns| ns.length <= 5}.to_a
 
+# -- Example of Array#lazy_slice
+# big_array = (0..10000).to_a
+# big_array.lazy_slice(9995..10000).map { |x| 2*x }.to_a
+# #=> [19990, 19992, 19994, 19996, 19998, 20000]

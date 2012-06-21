@@ -189,7 +189,13 @@ Example:
   irb> _.select{|n| n.to_s[-1] == "9"}
    => #<Enumerable::Lazy: #<Enumerator::Generator:0x000001010848f8>:each>
   irb> _.take(3)
-   => [9, 49, 169] 
+   => [9, 49, 169]
+   
+Example of lazy_slice on array:
+
+  irb> big_array = (0..10000).to_a
+  irb> big_array.lazy_slice(9995..10000).map { |x| 2*x }.to_a
+   => [19990, 19992, 19994, 19996, 19998, 20000]   
 
 ### Methods not redefined
 
